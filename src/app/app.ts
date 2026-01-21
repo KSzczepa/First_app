@@ -12,13 +12,13 @@ import { TaskComponent } from './task/task';
 })
 export class App {
   users = DUMMY_USERS;
-  selectedUserId = signal<string | null>('u1');
+  selectedUserId?: string;
 
   get selectedUser() {
-    return this.users.find(user => user.id === this.selectedUserId())!;
+    return this.users.find(user => user.id === this.selectedUserId);
   }
 
   onSelectUser(id: string) {
-    this.selectedUserId.set(id);
+    this.selectedUserId = id;
   }
 }
