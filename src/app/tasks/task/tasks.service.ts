@@ -43,6 +43,13 @@ export class TasksService {
   }
 
   removeTask(taskId: string) {
-    this.tasks = this.tasks.filter(task => task.id !== taskId);
+    const index = this.tasks.findIndex(task => task.id === taskId);
+    if (index !== -1) {
+      this.tasks.splice(index, 1);
+    }
+  }
+
+  completeTask(taskId: string) {
+    this.removeTask(taskId);
   }
 }

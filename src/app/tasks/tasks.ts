@@ -29,15 +29,11 @@ export class TasksComponent {
     return this.taskService.getUserTasks(this.userId);
   }
 
-  onCompleteTask(taskId: string) {
-    this.taskService.removeTask(taskId);
-  }
-
   onStartAddTask() {
     this.showNewTaskForm = true;
   }
 
-  onCancelAddTask() {
+  onCloseAddTask() {
     this.showNewTaskForm = false;
   }
 

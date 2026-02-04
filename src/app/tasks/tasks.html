@@ -7,13 +7,13 @@
       </menu>
     </header>
     @if (showNewTaskForm) {
-      <app-new-task-template (cancel)="onCancelAddTask()" (add)="onAddTask($event)" />
+      <app-new-task-template [userId]="userId" (close)="onCloseAddTask()" />
     }
     <ul id="tasks-list">
       @for (task of selectedUserTask; track task.id) {
         <li>
           @if (selectedUserTask.length > 0) {
-            <app-task [task]="task" (complete)="onCompleteTask($event)"></app-task>
+            <app-task [task]="task"></app-task>
           } @else {
             <p id="no-tasks">No tasks found for {{ name }}.</p>
           }
