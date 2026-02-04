@@ -28,6 +28,13 @@ export class TasksService {
     },
   ];
 
+  constructor() {
+    const storedTasks = localStorage.getItem('tasks');
+    if (storedTasks) {
+      this.tasks = JSON.parse(storedTasks);
+    }
+  }
+
   getUserTasks(userId: string) {
     return this.tasks.filter(task => task.userId === userId);
   }
@@ -40,6 +47,7 @@ export class TasksService {
       summary: formData.summary,
       dueDate: formData.dueDate
     });
+    this.saveTasksToStorage();
   }
 
   removeTask(taskId: string) {
@@ -47,9 +55,14 @@ export class TasksService {
     if (index !== -1) {
       this.tasks.splice(index, 1);
     }
+    this.saveTasksToStorage();
   }
 
   completeTask(taskId: string) {
     this.removeTask(taskId);
+  }
+
+  private saveTasksToStorage() {
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 }
