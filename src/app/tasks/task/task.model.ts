@@ -5,3 +5,9 @@ export interface TaskData {
   summary: string;
   dueDate: string;
 }
+
+export interface FormData {
+    title: string;
+    summary: string;
+    dueDate: string;
+}

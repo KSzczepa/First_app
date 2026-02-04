@@ -1,27 +1,25 @@
-<section id="tasks-section">
-  <header>
-    <h2>{{ name }}'s Tasks</h2>
-    <menu>
-      <button (click)="onAddTask()">Add Task</button>
-    </menu>
-  </header>
-  @if (showNewTaskForm) {
-    <div class="modal-overlay" (click)="showNewTaskForm = false">
-      <div class="modal" (click)="$event.stopPropagation()">
-        <app-new-task-template (close)="showNewTaskForm = false"></app-new-task-template>
-      </div>
-    </div>
-  }
-  <ul id="tasks-list">
-    @for (task of selectedUserTask; track task.id) {
-      <li>
-        @if (selectedUserTask.length > 0) {
-          <app-task [task]="task" (complete)="onCompleteTask($event)"></app-task>
-        }
-        @else {
-          <p id="no-tasks">No tasks found for {{ name }}.</p>
-        }
-      </li>
+  <section id="tasks-section">
+    <app-card>
+    <header>
+      <h2>{{ name }}'s Tasks</h2>
+      <menu>
+        <button (click)="onStartAddTask()">Add Task</button>
+      </menu>
+    </header>
+    @if (showNewTaskForm) {
+      <app-new-task-template (cancel)="onCancelAddTask()" (add)="onAddTask($event)" />
     }
-  </ul>
-</section>
+    <ul id="tasks-list">
+      @for (task of selectedUserTask; track task.id) {
+        <li>
+          @if (selectedUserTask.length > 0) {
+            <app-task [task]="task" (complete)="onCompleteTask($event)"></app-task>
+          } @else {
+            <p id="no-tasks">No tasks found for {{ name }}.</p>
+          }
+        </li>
+      }
+    </ul>
+    </app-card>
+  </section>
+

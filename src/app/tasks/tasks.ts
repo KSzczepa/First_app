@@ -1,10 +1,12 @@
 import { Component, Input, Output, EventEmitter, output } from '@angular/core';
 import { Task } from './task/task';
 import { NewTaskTemplate } from './new-task-template/new-task-template';
+import { FormData } from './task/task.model';
+import { Card } from "../shared/card/card";
 
 @Component({
   selector: 'app-tasks',
-  imports: [Task, NewTaskTemplate],
+  imports: [Task, NewTaskTemplate, Card],
   templateUrl: './tasks.html',
   styleUrl: './tasks.css',
 })
@@ -52,7 +54,24 @@ export class TasksComponent {
     this.tasks = this.tasks.filter(task => task.id !== taskId);
   }
 
-  onAddTask() {
+  onStartAddTask() {
     this.showNewTaskForm = true;
   }
+
+  onCancelAddTask() {
+    this.showNewTaskForm = false;
+  }
+
+  onAddTask(formData: FormData) {
+    this.tasks.push({
+      id: 't' + (this.tasks.length + 1),
+      userId: this.userId,
+      title: formData.title,
+      summary: formData.summary,
+      dueDate: formData.dueDate
+    });
+    console.log(this.tasks);
+    this.showNewTaskForm = false;
+  }
 }
+
